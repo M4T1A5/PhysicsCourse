@@ -37,5 +37,5 @@ sf::FloatRect Ball::getSize()
 
 void Ball::defaults()
 {
-	setFillColor(sf::Color::Black);
+	setFillColor(sf::Color::Blue);
 }

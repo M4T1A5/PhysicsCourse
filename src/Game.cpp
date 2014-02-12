@@ -31,6 +31,8 @@ void Game::draw()
 
 void Game::initScenes()
 {
+	Scene::font.loadFromFile("arial.ttf");
+
 	scenes.push_back(new BallDropScene());
 }
 

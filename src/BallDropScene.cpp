@@ -12,6 +12,8 @@ BallDropScene::~BallDropScene()
 
 void BallDropScene::init()
 {
+	sceneName.setString("Pallon putoaminen");
+
 	ball = new Ball(sf::Vector2f(windowSize.x/2-50, 100), 50);
 	balls.push_back(ball);
 	ball->velocity.y = 200; // Gravity
@@ -29,7 +31,7 @@ void BallDropScene::update(float dt)
 
 	if (ball->getPosition().y + ball->getSize().height > windowSize.y)
 	{
-		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getRadius() * 2);
+		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getSize().height);
 		ball->velocity.y = 0;
 	}
 }
