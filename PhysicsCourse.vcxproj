@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\BallDropScene.cpp" />
+    <ClCompile Include="src\BallThrowScene.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Scene.cpp" />
@@ -20,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\Ball.hpp" />
     <ClInclude Include="include\BallDropScene.hpp" />
+    <ClInclude Include="include\BallThrowScene.hpp" />
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\Scenes.hpp" />

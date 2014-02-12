@@ -33,6 +33,9 @@ void Game::initScenes()
 	Scene::font.loadFromFile("arial.ttf");
 
 	scenes.push_back(new BallDropScene());
+	scenes.push_back(new BallThrowScene());
+}
+
 void Game::changeScene()
 {
 	if (currentScene >= scenes.size() - 1)
