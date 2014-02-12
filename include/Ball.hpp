@@ -9,7 +9,7 @@ class Ball : public sf::CircleShape
 {
 public:
 	Ball();
-	Ball(float radius);
+	Ball(sf::Vector2f position, float radius);
 	~Ball();
 
 	void update(float deltaTime);

@@ -13,6 +13,7 @@ public:
 	void MainLoop();
 
 private:
+	void initScenes();
 	void update(float deltaTime);
 	void draw();
 	

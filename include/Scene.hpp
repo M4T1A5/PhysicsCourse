@@ -6,14 +6,16 @@
 class Scene
 {
 public:
-	virtual ~Scene() = 0;
+	virtual ~Scene(){};
 
 	virtual void init() = 0;
 	virtual void deinit() = 0;
 	virtual void update(float deltaTime) = 0;
 	void draw(sf::RenderWindow* window);
 
-private:
+	static sf::Vector2u windowSize;
+
+protected:
 	std::vector<Ball*> balls;
 };
 

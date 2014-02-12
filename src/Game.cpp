@@ -1,10 +1,15 @@
 #include <Game.hpp>
+#include <Scenes.hpp>
 
 Game::Game()
 	: currentScene(0)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Dem PhysX");
 	window->setVerticalSyncEnabled(true);
+
+	Scene::windowSize = window->getSize();
+
+	initScenes();
 }
 
 Game::~Game()
@@ -24,6 +29,11 @@ void Game::draw()
 }
 
 
+void Game::initScenes()
+{
+	scenes.push_back(new BallDropScene());
+}
+
 // Public
 void Game::MainLoop()
 {
@@ -40,7 +50,7 @@ void Game::MainLoop()
 			}
         }
 
-        window->clear();
+        window->clear(sf::Color::White);
 		update(time.asSeconds());
 		draw();
         window->display();

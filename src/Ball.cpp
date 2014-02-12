@@ -1,4 +1,5 @@
 #include <Ball.hpp>
+#include <iostream>
 
 Ball::Ball()
 	: CircleShape(0)
@@ -6,10 +7,11 @@ Ball::Ball()
 	defaults();
 }
 
-Ball::Ball(float radius)
+Ball::Ball(sf::Vector2f position, float radius)
 	: CircleShape(radius)
 {
 	defaults();
+	setPosition(position);
 }
 
 Ball::~Ball()
@@ -21,6 +23,7 @@ Ball::~Ball()
 
 void Ball::update(float dt)
 {
+	//std::cout << getPosition().x << " " <<  getPosition().y << std::endl;
 	move(velocity * dt);
 }
 
@@ -35,5 +38,4 @@ sf::FloatRect Ball::getSize()
 void Ball::defaults()
 {
 	setFillColor(sf::Color::Black);
-	//setPointCount(getRadius() * 2 * PI);
 }
