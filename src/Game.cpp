@@ -7,8 +7,6 @@ Game::Game()
 	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Dem PhysX");
 	window->setVerticalSyncEnabled(true);
 
-	Scene::windowSize = window->getSize();
-
 	initScenes();
 }
 
@@ -31,6 +29,7 @@ void Game::draw()
 
 void Game::initScenes()
 {
+	Scene::windowSize = window->getSize();
 	Scene::font.loadFromFile("arial.ttf");
 
 	scenes.push_back(new BallDropScene());
