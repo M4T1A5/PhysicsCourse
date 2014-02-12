@@ -1,0 +1,24 @@
+#ifndef BALL_H
+#define BALL_H
+
+#define PI 3.14159265359
+
+#include <SFML\Graphics.hpp>
+
+class Ball : public sf::CircleShape
+{
+public:
+	Ball();
+	Ball(float radius);
+	~Ball();
+
+	void update(float deltaTime);
+	sf::FloatRect getSize();
+
+	sf::Vector2f velocity;
+
+private:
+	void defaults();
+};
+
+#endif
