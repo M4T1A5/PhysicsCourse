@@ -14,10 +14,12 @@
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Ball.hpp" />
     <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\Scene.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{83F85777-291E-4840-8D14-CB5981F4591D}</ProjectGuid>
