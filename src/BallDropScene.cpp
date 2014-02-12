@@ -1,6 +1,7 @@
 #include <BallDropScene.hpp>
 
 BallDropScene::BallDropScene()
+	: ball(nullptr)
 {
 	init();
 }
@@ -21,8 +22,9 @@ void BallDropScene::init()
 
 void BallDropScene::deinit()
 {
-	delete ball;
-	balls.empty();
+	if (ball != nullptr)
+		delete ball;
+	balls.clear();
 }
 
 void BallDropScene::update(float dt)

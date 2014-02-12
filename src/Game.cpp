@@ -33,6 +33,15 @@ void Game::initScenes()
 	Scene::font.loadFromFile("arial.ttf");
 
 	scenes.push_back(new BallDropScene());
+void Game::changeScene()
+{
+	if (currentScene >= scenes.size() - 1)
+		currentScene = 0;
+	else
+		currentScene++;
+
+	scenes.at(currentScene)->deinit();
+	scenes.at(currentScene)->init();
 }
 
 // Public
@@ -48,6 +57,13 @@ void Game::MainLoop()
 			{
                 window->close();
 				return; // exit mainloop
+			}
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::Space)
+				{
+					changeScene();
+				}
 			}
         }
 
