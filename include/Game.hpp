@@ -14,6 +14,7 @@ public:
 
 private:
 	void initScenes();
+	void resetScene();
 	void changeScene();
 	void update(float deltaTime);
 	void draw();

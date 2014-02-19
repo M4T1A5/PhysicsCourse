@@ -2,7 +2,7 @@
 #include <Scenes.hpp>
 
 Game::Game()
-	: currentScene(0)
+	: currentScene(2)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Dem PhysX");
 	window->setVerticalSyncEnabled(true);
@@ -34,17 +34,24 @@ void Game::initScenes()
 
 	scenes.push_back(new BallDropScene());
 	scenes.push_back(new BallThrowScene());
+	scenes.push_back(new BallBounceScene());
+}
+
+void Game::resetScene()
+{
+	scenes.at(currentScene)->deinit();
+	scenes.at(currentScene)->init();
 }
 
 void Game::changeScene()
 {
+	scenes.at(currentScene)->deinit();
 	if (currentScene >= scenes.size() - 1)
 		currentScene = 0;
 	else
-		currentScene++;
+		currentScene++;	
 
-	scenes.at(currentScene)->deinit();
-	scenes.at(currentScene)->init();
+	resetScene();
 }
 
 // Public
@@ -66,6 +73,11 @@ void Game::MainLoop()
 				if (event.key.code == sf::Keyboard::Space)
 				{
 					changeScene();
+				}
+
+				if (event.key.code == sf::Keyboard::R)
+				{
+					resetScene();
 				}
 			}
         }

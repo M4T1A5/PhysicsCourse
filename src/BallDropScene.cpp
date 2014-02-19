@@ -4,6 +4,7 @@ BallDropScene::BallDropScene()
 	: ball(nullptr)
 {
 	init();
+	GRAVITY = 500.f;
 }
 
 BallDropScene::~BallDropScene()
@@ -17,7 +18,6 @@ void BallDropScene::init()
 
 	ball = new Ball(sf::Vector2f(windowSize.x/2-50, 100), 50);
 	balls.push_back(ball);
-	ball->velocity.y = 200; // Gravity
 }
 
 void BallDropScene::deinit()
@@ -30,6 +30,7 @@ void BallDropScene::deinit()
 void BallDropScene::update(float dt)
 {
 	ball->update(dt);
+	ball->velocity.y += GRAVITY * dt;
 
 	if (ball->getPosition().y + ball->getSize().height > windowSize.y)
 	{

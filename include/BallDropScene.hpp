@@ -15,6 +15,7 @@ public:
 
 private:
 	Ball* ball;
+	float GRAVITY;
 };
 
 #endif
