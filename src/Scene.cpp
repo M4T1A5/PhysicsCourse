@@ -1,7 +1,6 @@
 #include <Scene.hpp>
 
 sf::Vector2u Scene::windowSize = sf::Vector2u();
-sf::Font Scene::font = sf::Font();
 
 Scene::Scene()
 {

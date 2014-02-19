@@ -8,7 +8,7 @@ BallBounceScene::BallBounceScene()
 
 BallBounceScene::~BallBounceScene()
 {
-
+	deinit();
 }
 
 
@@ -16,14 +16,15 @@ BallBounceScene::~BallBounceScene()
 
 void BallBounceScene::init()
 {
+	font.loadFromFile("arial.ttf");
 	sceneName.setString("Pallon pomputtelu");
-	GRAVITY = 100.f;
-	FRICTION = 0.8f;
+	GRAVITY = 400.f;
+	FRICTION = 0.9f;
 
 	ball = new Ball(sf::Vector2f(0, windowSize.y/2), 50);
 	balls.push_back(ball);
 
-	ball->velocity = sf::Vector2f(300, 0);
+	ball->velocity = sf::Vector2f(600, 0);
 }
 
 void BallBounceScene::deinit()
@@ -36,7 +37,6 @@ void BallBounceScene::deinit()
 void BallBounceScene::update(float dt)
 {
 	ball->update(dt);
-	ball->velocity.y += GRAVITY;
 
 	if(ball->getPosition().x < 0)
 	{
@@ -57,9 +57,9 @@ void BallBounceScene::update(float dt)
 	else if(ball->getPosition().y > windowSize.y - ball->getSize().height)
 	{
 		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getSize().height);
-		ball->velocity.y -= GRAVITY;
 		ball->velocity.y *= -FRICTION;
 		ball->velocity.x *= FRICTION;
 	}
 
+	ball->velocity.y += GRAVITY * dt;
 }

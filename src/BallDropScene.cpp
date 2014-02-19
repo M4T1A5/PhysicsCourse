@@ -4,7 +4,6 @@ BallDropScene::BallDropScene()
 	: ball(nullptr)
 {
 	init();
-	GRAVITY = 500.f;
 }
 
 BallDropScene::~BallDropScene()
@@ -14,7 +13,11 @@ BallDropScene::~BallDropScene()
 
 void BallDropScene::init()
 {
+	font.loadFromFile("arial.ttf");
 	sceneName.setString("Pallon putoaminen");
+
+	GRAVITY = 500.f;
+
 
 	ball = new Ball(sf::Vector2f(windowSize.x/2-50, 100), 50);
 	balls.push_back(ball);

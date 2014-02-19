@@ -13,6 +13,7 @@ BallThrowScene::~BallThrowScene()
 
 void BallThrowScene::init()
 {
+	font.loadFromFile("arial.ttf");
 	sceneName.setString("Pallon heitto");
 
 	ball = new Ball(sf::Vector2f(0, windowSize.y - 100), 50);
