@@ -58,6 +58,9 @@ bool Ball::collidesTo(Ball* other, sf::Vector2f* collisionOutput)
 
 	float collisionLength = combinedRadius - distanceLenght;
 
+	distance /= distanceLenght;
+
+	*collisionOutput = distance * collisionLength;
 
 	return true;
 }
