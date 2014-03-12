@@ -19,7 +19,7 @@ void BallDropScene::init()
 	GRAVITY = 500.f;
 
 
-	ball = new Ball(sf::Vector2f(windowSize.x/2-50, 100), 50);
+	ball = new Ball(sf::Vector2f(windowSize.x/2, 100), 50);
 	balls.push_back(ball);
 }
 
@@ -35,9 +35,9 @@ void BallDropScene::update(float dt)
 	ball->update(dt);
 	ball->velocity.y += GRAVITY * dt;
 
-	if (ball->getPosition().y + ball->getSize().height > windowSize.y)
+	if (ball->getPosition().y + ball->getRadius() > windowSize.y)
 	{
-		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getSize().height);
+		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getRadius());
 		ball->velocity.y = 0;
 	}
 }

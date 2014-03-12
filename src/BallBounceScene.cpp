@@ -38,25 +38,25 @@ void BallBounceScene::update(float dt)
 {
 	ball->update(dt);
 
-	if(ball->getPosition().x < 0)
+	if(ball->getPosition().x - ball->getRadius() < 0)
 	{
-		ball->setPosition(0, ball->getPosition().y);
+		ball->setPosition(0 + ball->getRadius(), ball->getPosition().y);
 		ball->velocity.x *= -FRICTION;
 	}
-	else if(ball->getPosition().x > windowSize.x - ball->getSize().width)
+	else if(ball->getPosition().x > windowSize.x - ball->getRadius())
 	{
-		ball->setPosition(windowSize.x - ball->getSize().width, ball->getPosition().y);
+		ball->setPosition(windowSize.x - ball->getRadius(), ball->getPosition().y);
 		ball->velocity.x *= -FRICTION;
 	}
 
-	if(ball->getPosition().y < 0)
+	if(ball->getPosition().y - ball->getRadius() < 0)
 	{
-		ball->setPosition(ball->getPosition().y, 0);
+		ball->setPosition(ball->getPosition().y + ball->getRadius(), 0);
 		ball->velocity.y *= -FRICTION;
 	}
-	else if(ball->getPosition().y > windowSize.y - ball->getSize().height)
+	else if(ball->getPosition().y > windowSize.y - ball->getRadius())
 	{
-		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getSize().height);
+		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getRadius());
 		ball->velocity.y *= -FRICTION;
 		ball->velocity.x *= FRICTION;
 	}

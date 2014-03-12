@@ -16,7 +16,7 @@ void BallThrowScene::init()
 	font.loadFromFile("arial.ttf");
 	sceneName.setString("Pallon heitto");
 
-	ball = new Ball(sf::Vector2f(0, windowSize.y - 100), 50);
+	ball = new Ball(sf::Vector2f(50, windowSize.y - 50), 50);
 	balls.push_back(ball);
 
 	GRAVITY = 400;
@@ -38,13 +38,13 @@ void BallThrowScene::update(float dt)
 
 	ball->velocity.y += GRAVITY * dt;
 
-	if (ball->getPosition().y + ball->getSize().height >= windowSize.y)
+	if (ball->getPosition().y + ball->getRadius() >= windowSize.y)
 	{
 		ball->velocity.y = 0;
-		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getSize().height);
+		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getRadius());
 	}
 
-	if (ball->getPosition().x > windowSize.x)
+	if (ball->getPosition().x - ball->getRadius() > windowSize.x)
 	{
 		deinit();
 		init();

@@ -50,4 +50,14 @@ bool Ball::collidesTo(Ball* other)
 void Ball::defaults()
 {
 	setFillColor(sf::Color::Blue);
+	setPointCount(2*PI*getRadius());
+
+	// Magic
+	sf::Vector2f origin(getRadius(), getRadius());
+
+	// Also works if original vector is (0.5, 0.5) but is same as above
+	//origin.x *= getRadius() * 2;
+	//origin.y *= getRadius() * 2;
+
+	setOrigin(origin);
 }
