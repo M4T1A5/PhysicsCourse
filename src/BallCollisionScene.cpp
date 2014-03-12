@@ -25,7 +25,7 @@ void BallCollisionScene::init()
 
 	for(int i = 0; i < BALL_AMMOUNT; ++i)
 	{
-		Ball* ball = new Ball(sf::Vector2f(i * 50, windowSize.y * 0.5f), 50);
+		Ball* ball = new Ball(sf::Vector2f(i * 60, windowSize.y * 0.5f), 50);
 		balls.push_back(ball);
 
 		float x = ((float)rand() / RAND_MAX) * 100 + 500; // Something between 500 and 600
@@ -51,14 +51,34 @@ void BallCollisionScene::deinit()
 
 void BallCollisionScene::update(float dt)
 {
+	// Ball collision
+	/////////////////////////////////////
+	for(int i = 0; i < balls.size(); ++i)
+	{
+		for(int j = i + 1; j < balls.size(); ++j)
+		{
+			Ball* ball1 = balls.at(i);
+			Ball* ball2 = balls.at(j);
+
+			sf::Vector2f collision;
+
+			if(ball1->collidesTo(ball2, &collision))
+			{
+				printf("Kolisee\n");
+				ball1->velocity = -ball1->velocity;
+				//ball1->move(-collision);
+				ball2->velocity = -ball2->velocity;
+				//ball2->move(collision);
+			}
+		}
+	}
+
 	// Wall collisions
 	///////////////////////////////////////////////////////
 
 	for(auto i = balls.begin(); i != balls.end(); ++i)
 	{
 		Ball* ball = (*i);
-
-		ball->update(dt);
 
 		if(ball->getPosition().x - ball->getRadius() < 0)
 		{
@@ -84,20 +104,7 @@ void BallCollisionScene::update(float dt)
 		}
 
 		ball->velocity.y += GRAVITY * dt;
-	}
 
-	// Ball collision
-	/////////////////////////////////////
-	for(int i = 0; i < balls.size(); ++i)
-	{
-		for(int j = i + 1; j < balls.size(); ++j)
-		{
-			Ball* ball1 = balls.at(i);
-			Ball* ball2 = balls.at(j);
-
-			sf::Vector2f collision;
-
-			if(ball1->collidesTo(ball2, &collision));
-		}
+		ball->update(dt);
 	}
 }
