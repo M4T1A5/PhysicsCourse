@@ -2,7 +2,7 @@
 #include <Scenes.hpp>
 
 Game::Game()
-	: currentScene(2)
+	: currentScene(3)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Dem PhysX");
 	window->setVerticalSyncEnabled(true);
@@ -34,6 +34,7 @@ void Game::initScenes()
 	scenes.push_back(new BallDropScene());
 	scenes.push_back(new BallThrowScene());
 	scenes.push_back(new BallBounceScene());
+	scenes.push_back(new BallCollisionScene());
 }
 
 void Game::resetScene()
