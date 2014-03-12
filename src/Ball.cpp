@@ -1,5 +1,6 @@
 #include <Ball.hpp>
 #include <iostream>
+#include <cmath>
 
 Ball::Ball()
 	: CircleShape(0)
@@ -32,6 +33,17 @@ sf::FloatRect Ball::getSize()
 	return getGlobalBounds();
 }
 
+bool Ball::collidesTo(Ball* other)
+{
+	sf::Vector2f distance = other->getPosition() - getPosition();
+
+	float distanceLenght = sqrt(pow(distance.x, 2) + pow(distance.y, 2));
+
+	if(distanceLenght < getRadius() + other->getRadius())
+		return true;
+
+	return false;
+}
 
 // Private
 

@@ -13,8 +13,10 @@ public:
 	~Ball();
 
 	void update(float deltaTime);
+
 	sf::FloatRect getSize();
 
+	bool collidesTo(Ball* other);
 	sf::Vector2f velocity;
 
 private:
