@@ -1,7 +1,7 @@
 #ifndef BALL_H
 #define BALL_H
 
-#define PI 3.14159265359
+const double PI = 3.14159265359;
 
 #include <SFML\Graphics.hpp>
 
