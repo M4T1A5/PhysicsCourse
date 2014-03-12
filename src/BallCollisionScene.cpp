@@ -73,7 +73,7 @@ void BallCollisionScene::update(float dt)
 
 		if(ball->getPosition().y - ball->getRadius() < 0)
 		{
-			ball->setPosition(ball->getPosition().y + ball->getRadius(), 0);
+			ball->setPosition(ball->getPosition().x, 0 + ball->getRadius());
 			ball->velocity.y *= -FRICTION;
 		}
 		else if(ball->getPosition().y > windowSize.y - ball->getRadius())
