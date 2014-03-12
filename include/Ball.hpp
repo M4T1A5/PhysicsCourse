@@ -17,6 +17,8 @@ public:
 	sf::FloatRect getSize();
 
 	bool collidesTo(Ball* other);
+	bool collidesTo(Ball* other, sf::Vector2f* collisionOutput);
+
 	sf::Vector2f velocity;
 
 private:

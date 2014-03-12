@@ -45,6 +45,24 @@ bool Ball::collidesTo(Ball* other)
 	return false;
 }
 
+bool Ball::collidesTo(Ball* other, sf::Vector2f* collisionOutput)
+{
+	sf::Vector2f distance = other->getPosition() - getPosition();
+	float distanceLenght = sqrt(pow(distance.x, 2) + pow(distance.y, 2));
+
+	float combinedRadius = getRadius() + other->getRadius();
+
+	if(distanceLenght >= combinedRadius)
+		return false;
+
+
+	float collisionLength = combinedRadius - distanceLenght;
+
+
+	return true;
+}
+
+
 // Private
 
 void Ball::defaults()
