@@ -19,13 +19,13 @@ void BallCollisionScene::init()
 
 	font.loadFromFile("arial.ttf");
 	sceneName.setString("Pallojen törmäily");
-	BALL_AMMOUNT = 2;
+	BALL_AMMOUNT = 3;
 	GRAVITY = 400.f;
-	FRICTION = 0.9f;
+	FRICTION = 0.8f;
 
 	for(int i = 0; i < BALL_AMMOUNT; ++i)
 	{
-		Ball* ball = new Ball(sf::Vector2f(i * 60, windowSize.y * 0.5f), 50);
+		Ball* ball = new Ball(sf::Vector2f(i * 105, windowSize.y * 0.5f), 50);
 		balls.push_back(ball);
 
 		float x = ((float)rand() / RAND_MAX) * 100 + 500; // Something between 500 and 600
@@ -51,6 +51,20 @@ void BallCollisionScene::deinit()
 
 void BallCollisionScene::update(float dt)
 {
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		float x = ((float)rand() / RAND_MAX) * windowSize.x;
+		float y = ((float)rand() / RAND_MAX) * windowSize.y;
+
+		Ball* ball = new Ball(sf::Vector2f(x, y), 50);
+		balls.push_back(ball);
+
+		float vx = ((float)rand() / RAND_MAX) * 100 + 500; // Something between 500 and 600
+		float vy = ((float)rand() / RAND_MAX) * 100 + 400; // Something between 400 and 500
+
+		ball->velocity = sf::Vector2f(vx, -vy);
+	}
+
 	// Ball collision
 	/////////////////////////////////////
 	for(int i = 0; i < balls.size(); ++i)
@@ -60,15 +74,40 @@ void BallCollisionScene::update(float dt)
 			Ball* ball1 = balls.at(i);
 			Ball* ball2 = balls.at(j);
 
-			sf::Vector2f collision;
+			sf::Vector2f normal;
+			float collisionLength;
 
-			if(ball1->collidesTo(ball2, &collision))
+			if(ball1->collidesTo(ball2, &normal, &collisionLength))
 			{
-				printf("Kolisee\n");
-				ball1->velocity = -ball1->velocity;
-				//ball1->move(-collision);
-				ball2->velocity = -ball2->velocity;
-				//ball2->move(collision);
+				//printf("Kolisee\n");
+
+				sf::Vector2f tangent(-normal.y, normal.x);
+
+				float v1n = normal.x * ball1->velocity.x + normal.y * ball1->velocity.y;
+				float v1t = tangent.x * ball1->velocity.x + tangent.y * ball1->velocity.y;
+				float v2n = normal.x * ball2->velocity.x + normal.y * ball2->velocity.y;
+				float v2t = tangent.x * ball2->velocity.x + tangent.y * ball2->velocity.y;
+
+				float m1 = ball1->mass;
+				float m2 = ball2->mass;
+				float v1nEnd = (v1n*(m1-m2)+2*m2*v2n)/(m1+m2);
+				float v2nEnd = (v2n*(m2-m1)+2*m1*v1n)/(m1+m2);
+
+				sf::Vector2f v1nEndVector = normal * v1nEnd;
+				sf::Vector2f v2nEndVector = normal * v2nEnd;
+				sf::Vector2f v1tEndVector = v1t * tangent;
+				sf::Vector2f v2tEndVector = v2t * tangent;
+
+				sf::Vector2f v1End = v1nEndVector + v1tEndVector;
+				sf::Vector2f v2End = v2nEndVector + v2tEndVector;
+
+				ball1->velocity = v1End;
+				ball2->velocity = v2End;
+
+				sf::Vector2f collisionDepth = normal * collisionLength;
+
+				ball1->move(-collisionDepth);
+				ball2->move(collisionDepth);
 			}
 		}
 	}

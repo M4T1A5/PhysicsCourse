@@ -8,8 +8,8 @@ const double PI = 3.14159265359;
 class Ball : public sf::CircleShape
 {
 public:
-	Ball();
-	Ball(sf::Vector2f position, float radius);
+	Ball(float mass = 1.0f);
+	Ball(sf::Vector2f position, float radius, float mass = 1.0f);
 	~Ball();
 
 	void update(float deltaTime);
@@ -17,9 +17,10 @@ public:
 	sf::FloatRect getSize();
 
 	bool collidesTo(Ball* other);
-	bool collidesTo(Ball* other, sf::Vector2f* collisionOutput);
+	bool collidesTo(Ball* other, sf::Vector2f* collisionNormal, float* collisionLength);
 
 	sf::Vector2f velocity;
+	float mass;
 
 private:
 	void defaults();

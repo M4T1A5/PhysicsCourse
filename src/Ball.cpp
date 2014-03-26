@@ -2,23 +2,23 @@
 #include <iostream>
 #include <cmath>
 
-Ball::Ball()
-	: CircleShape(0)
+Ball::Ball(float mass)
+	: CircleShape(0),
+	  mass(mass)
 {
 	defaults();
 }
 
-Ball::Ball(sf::Vector2f position, float radius)
-	: CircleShape(radius)
+Ball::Ball(sf::Vector2f position, float radius, float mass)
+	: CircleShape(radius),
+	  mass(mass)
 {
 	defaults();
 	setPosition(position);
 }
 
 Ball::~Ball()
-{
-
-}
+{ }
 
 // Public
 
@@ -45,7 +45,7 @@ bool Ball::collidesTo(Ball* other)
 	return false;
 }
 
-bool Ball::collidesTo(Ball* other, sf::Vector2f* collisionOutput)
+bool Ball::collidesTo(Ball* other, sf::Vector2f* collisionNormal, float* collisionLength)
 {
 	sf::Vector2f distance = other->getPosition() - getPosition();
 	float distanceLenght = sqrt(pow(distance.x, 2) + pow(distance.y, 2));
@@ -56,11 +56,11 @@ bool Ball::collidesTo(Ball* other, sf::Vector2f* collisionOutput)
 		return false;
 
 
-	float collisionLength = combinedRadius - distanceLenght;
+	*collisionLength = combinedRadius - distanceLenght;
 
 	distance /= distanceLenght;
 
-	*collisionOutput = distance * collisionLength;
+	*collisionNormal = distance;//* collisionLength;
 
 	return true;
 }
