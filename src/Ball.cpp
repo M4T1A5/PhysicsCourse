@@ -24,22 +24,31 @@ Ball::~Ball()
 
 void Ball::update(float dt)
 {
-	//std::cout << getPosition().x << " " <<  getPosition().y << std::endl;
 	move(velocity * dt);
+
+	// Move the text to the center of the ball
+	ballMassText.setPosition(getPosition());
 }
 
-sf::FloatRect Ball::getSize()
+void Ball::draw(sf::RenderWindow* window)
 {
-	return getGlobalBounds();
+	window->draw(*this);
+
+	// Draw the mass of the ball on the ball
+	if(drawMass)
+		window->draw(ballMassText);
 }
 
 bool Ball::collidesTo(Ball* other)
 {
+	// Vector between the 2 balls
 	sf::Vector2f distance = other->getPosition() - getPosition();
+	// sfml vectors don't seeem to have many features
+	float distanceLenghtSquared = pow(distance.x, 2) + pow(distance.y, 2);
+	float combinedRadius = getRadius() + other->getRadius();
 
-	float distanceLenght = sqrt(pow(distance.x, 2) + pow(distance.y, 2));
-
-	if(distanceLenght < getRadius() + other->getRadius())
+	// Dont do pointless squre root
+	if(distanceLenghtSquared < pow(combinedRadius, 2))
 		return true;
 
 	return false;
@@ -48,19 +57,18 @@ bool Ball::collidesTo(Ball* other)
 bool Ball::collidesTo(Ball* other, sf::Vector2f* collisionNormal, float* collisionLength)
 {
 	sf::Vector2f distance = other->getPosition() - getPosition();
-	float distanceLenght = sqrt(pow(distance.x, 2) + pow(distance.y, 2));
-
 	float combinedRadius = getRadius() + other->getRadius();
+	float distanceLenghtSquared = pow(distance.x, 2) + pow(distance.y, 2);
 
-	if(distanceLenght >= combinedRadius)
+	if(distanceLenghtSquared >= pow(combinedRadius, 2))
 		return false;
 
 
+	float distanceLenght = sqrt(distanceLenghtSquared);
 	*collisionLength = combinedRadius - distanceLenght;
 
 	distance /= distanceLenght;
-
-	*collisionNormal = distance;//* collisionLength;
+	*collisionNormal = distance;
 
 	return true;
 }
@@ -70,15 +78,28 @@ bool Ball::collidesTo(Ball* other, sf::Vector2f* collisionNormal, float* collisi
 
 void Ball::defaults()
 {
+	drawMass = false;
+
 	setFillColor(sf::Color::Blue);
-	setPointCount(2*PI*getRadius());
 
-	// Magic
-	sf::Vector2f origin(getRadius(), getRadius());
+	// Calculate center of the ball
+	sf::Vector2f newOrigin(getRadius(), getRadius());
+	// Change the origin to the center of the ball
+	setOrigin(newOrigin);
 
-	// Also works if original vector is (0.5, 0.5) but is same as above
-	//origin.x *= getRadius() * 2;
-	//origin.y *= getRadius() * 2;
 
-	setOrigin(origin);
+	// Put the mass of the ball in a text
+	font.loadFromFile("arial.ttf");
+	ballMassText.setFont(font);
+	ballMassText.setCharacterSize(20);
+	ballMassText.setColor(sf::Color::Black);
+
+	std::string text;
+	text.resize(3);
+	sprintf(&*text.begin(), "%.2f", mass);
+	
+	ballMassText.setString(text);
+	newOrigin.x = ballMassText.getGlobalBounds().width/2;
+	newOrigin.y = ballMassText.getGlobalBounds().height/2;
+	ballMassText.setOrigin(newOrigin);
 }

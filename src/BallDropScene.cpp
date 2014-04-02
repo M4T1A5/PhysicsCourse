@@ -34,7 +34,8 @@ void BallDropScene::update(float dt)
 {
 	ball->update(dt);
 	ball->velocity.y += GRAVITY * dt;
-
+	
+	// Check if ball is hitting floor
 	if (ball->getPosition().y + ball->getRadius() > windowSize.y)
 	{
 		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getRadius());

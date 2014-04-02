@@ -3,7 +3,6 @@
 int main()
 {
 	Game game;
-
 	game.MainLoop();
 
     return 0;

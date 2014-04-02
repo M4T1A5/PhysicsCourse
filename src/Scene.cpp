@@ -11,8 +11,8 @@ Scene::Scene()
 
 void Scene::draw(sf::RenderWindow* window)
 {
-	window->draw(sceneName);
-
 	for(int i = 0; i < balls.size(); ++i)
-		window->draw(*balls.at(i));
+		balls.at(i)->draw(window);
+
+	window->draw(sceneName);
 }

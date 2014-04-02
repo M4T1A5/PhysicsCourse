@@ -15,8 +15,7 @@ public:
 
 private:
 	Ball* ball;
-	float GRAVITY;
-	float FRICTION;
+	float FRICTION; // Multiplier applied to collisions so ball will stop
 };
 
 #endif

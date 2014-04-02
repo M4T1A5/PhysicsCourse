@@ -18,8 +18,8 @@ void BallBounceScene::init()
 {
 	font.loadFromFile("arial.ttf");
 	sceneName.setString("Pallon pomputtelu");
-	GRAVITY = 400.f;
-	FRICTION = 0.9f;
+	GRAVITY = 500.f;
+	FRICTION = 0.9f; // Seems pretty good
 
 	ball = new Ball(sf::Vector2f(0, windowSize.y/2), 50);
 	balls.push_back(ball);
@@ -38,6 +38,7 @@ void BallBounceScene::update(float dt)
 {
 	ball->update(dt);
 
+	// Check collisions againts walls
 	if(ball->getPosition().x - ball->getRadius() < 0)
 	{
 		ball->setPosition(0 + ball->getRadius(), ball->getPosition().y);

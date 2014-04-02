@@ -2,9 +2,9 @@
 #include <Scenes.hpp>
 
 Game::Game()
-	: currentScene(3)
+	: currentScene(0)
 {
-	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Dem PhysX");
+	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Dem Physeeks");
 	window->setVerticalSyncEnabled(true);
 
 	initScenes();
@@ -13,6 +13,9 @@ Game::Game()
 Game::~Game()
 {
 	delete window;
+	for(auto it = scenes.begin(); it != scenes.end(); ++it)
+		delete *it;
+	scenes.clear();
 }
 
 // Private
@@ -43,12 +46,9 @@ void Game::resetScene()
 	scenes.at(currentScene)->init();
 }
 
-void Game::changeScene()
+void Game::changeScene(unsigned int scene)
 {
-	if (currentScene >= scenes.size() - 1)
-		currentScene = 0;
-	else
-		currentScene++;	
+	currentScene = scene;
 
 	resetScene();
 }
@@ -58,7 +58,6 @@ void Game::MainLoop()
 {
 	while (window->isOpen())
     {
-		time = clock.restart();
         sf::Event event;
         while (window->pollEvent(event))
         {
@@ -69,20 +68,37 @@ void Game::MainLoop()
 			}
 			if (event.type == sf::Event::KeyPressed)
 			{
-				if (event.key.code == sf::Keyboard::Space)
+				// Handle keyboard input
+				switch(event.key.code)
 				{
-					changeScene();
-				}
-
-				if (event.key.code == sf::Keyboard::R)
-				{
+				case sf::Keyboard::Num1:
+				case sf::Keyboard::Numpad1:
+					changeScene(0);
+					break;
+				case sf::Keyboard::Num2:
+				case sf::Keyboard::Numpad2:
+					changeScene(1);
+					break;
+				case sf::Keyboard::Num3:
+				case sf::Keyboard::Numpad3:
+					changeScene(2);
+					break;
+				case sf::Keyboard::Num4:
+				case sf::Keyboard::Numpad4:
+					changeScene(3);
+					break;
+				case sf::Keyboard::R:
 					resetScene();
+					break;
+				default:
+					printf("Use keys 1-4 to change scenes\nUse R to reset scene\n");
+					break;
 				}
 			}
         }
 
         window->clear(sf::Color::White);
-		update(time.asSeconds());
+		update(clock.restart().asSeconds()); // Update with deltatime
 		draw();
         window->display();
     }

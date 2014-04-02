@@ -13,7 +13,6 @@ public:
 	void update(float deltaTime);
 
 private:
-	float GRAVITY;
 	float FRICTION;
 	float BALL_AMMOUNT;
 };

@@ -13,19 +13,21 @@ public:
 	void MainLoop();
 
 private:
+	// Initialize scenes
 	void initScenes();
+	// Reset current scene
 	void resetScene();
-	void changeScene();
+	// Go to next scene
+	void changeScene(unsigned int scene);
 	void update(float deltaTime);
 	void draw();
 	
 
 	sf::RenderWindow* window;
 	sf::Clock clock;
-	sf::Time time;
 
 	std::vector<Scene*> scenes;
-	int currentScene;
+	unsigned int currentScene;
 };
 
 #endif
