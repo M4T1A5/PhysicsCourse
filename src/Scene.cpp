@@ -9,6 +9,7 @@ Scene::Scene()
 	sceneName.setCharacterSize(50);
 }
 
+// Only really need to draw balls and name of scene
 void Scene::draw(sf::RenderWindow* window)
 {
 	for(int i = 0; i < balls.size(); ++i)

@@ -38,12 +38,14 @@ void BallThrowScene::update(float dt)
 
 	ball->velocity.y += GRAVITY * dt;
 
+	// Check collision against the floor
 	if (ball->getPosition().y + ball->getRadius() >= windowSize.y)
 	{
 		ball->velocity.y = 0;
 		ball->setPosition(ball->getPosition().x, windowSize.y - ball->getRadius());
 	}
 
+	// If ball goes over screen reset the scene
 	if (ball->getPosition().x - ball->getRadius() > windowSize.x)
 	{
 		deinit();

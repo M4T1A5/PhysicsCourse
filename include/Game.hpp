@@ -26,6 +26,7 @@ private:
 	sf::RenderWindow* window;
 	sf::Clock clock;
 
+	// Scene management
 	std::vector<Scene*> scenes;
 	unsigned int currentScene;
 };

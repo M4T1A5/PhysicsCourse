@@ -4,6 +4,7 @@
 Game::Game()
 	: currentScene(0)
 {
+	// Initialize window
 	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Dem Physeeks");
 	window->setVerticalSyncEnabled(true);
 
@@ -12,10 +13,10 @@ Game::Game()
 
 Game::~Game()
 {
-	delete window;
 	for(auto it = scenes.begin(); it != scenes.end(); ++it)
 		delete *it;
 	scenes.clear();
+	delete window;
 }
 
 // Private
@@ -34,6 +35,7 @@ void Game::initScenes()
 {
 	Scene::windowSize = window->getSize();
 
+	// Create scenes
 	scenes.push_back(new BallDropScene());
 	scenes.push_back(new BallThrowScene());
 	scenes.push_back(new BallBounceScene());
@@ -54,10 +56,13 @@ void Game::changeScene(unsigned int scene)
 }
 
 // Public
+
 void Game::MainLoop()
 {
 	while (window->isOpen())
     {
+		// http://en.cppreference.com/w/cpp/keyword
+		// Stupid Visual C++
         sf::Event event;
         while (window->pollEvent(event))
         {
@@ -97,6 +102,7 @@ void Game::MainLoop()
 			}
         }
 
+		// Update and draw
         window->clear(sf::Color::White);
 		update(clock.restart().asSeconds()); // Update with deltatime
 		draw();
